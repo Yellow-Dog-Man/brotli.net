@@ -14,18 +14,28 @@ namespace Brotli
         internal static bool IsWindows = false;
         internal static bool IsLinux = false;
         internal static bool IsMacOSX = false;
-        internal static bool IsNetCore = false;
         internal static bool Is64Bit = false;
         static NativeLibraryLoader()
         {
-#if NET35 || NET40 || NET462
-            IsWindows=true;
-#else
-            IsWindows = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
-            IsLinux = RuntimeInformation.IsOSPlatform(OSPlatform.Linux);
-            IsMacOSX = RuntimeInformation.IsOSPlatform(OSPlatform.OSX);
-            IsNetCore = RuntimeInformation.FrameworkDescription.StartsWith(".NET Core");
-#endif
+            string windir = Environment.GetEnvironmentVariable("windir");
+            if (!string.IsNullOrEmpty(windir) && windir.Contains(@"\") && Directory.Exists(windir))
+            {
+                IsWindows = true;
+            }
+            else if (File.Exists(@"/proc/sys/kernel/ostype"))
+            {
+                string osType = File.ReadAllText(@"/proc/sys/kernel/ostype");
+                if (osType.StartsWith("Linux", StringComparison.OrdinalIgnoreCase))
+                {
+                    // Note: Android gets here too
+                    IsLinux = true;
+                }
+            }
+            else if (File.Exists(@"/System/Library/CoreServices/SystemVersion.plist"))
+            {
+                // Note: iOS gets here too
+                IsMacOSX = true;
+            }
             if (!IsWindows && !IsLinux && !IsMacOSX)
             {
                 throw new InvalidOperationException("Unsupported platform.");
@@ -77,11 +87,6 @@ namespace Brotli
             }
             if (IsLinux)
             {
-
-                if (IsNetCore)
-                {
-                    return CoreCLRLoader.dlsym(Handle, symbolName);
-                }
                 return LinuxLoader.dlsym(Handle, symbolName);
             }
             if (IsMacOSX)
@@ -153,10 +158,6 @@ namespace Brotli
             }
             if (IsLinux)
             {
-                if (IsNetCore)
-                {
-                    return UnloadLibraryPosix(CoreCLRLoader.dlclose, CoreCLRLoader.dlerror, handle, out errorMsg);
-                }
                 return UnloadLibraryPosix(LinuxLoader.dlclose, LinuxLoader.dlerror, handle, out errorMsg);
             }
             if (IsMacOSX)
@@ -185,10 +186,6 @@ namespace Brotli
             }
             if (IsLinux)
             {
-                if (IsNetCore)
-                {
-                    return LoadLibraryPosix(CoreCLRLoader.dlopen, CoreCLRLoader.dlerror, libraryPath, out errorMsg);
-                }
                 return LoadLibraryPosix(LinuxLoader.dlopen, LinuxLoader.dlerror, libraryPath, out errorMsg);
             }
             if (IsMacOSX)
