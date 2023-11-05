@@ -17,15 +17,15 @@ namespace Brotli
         internal static bool Is64Bit = false;
         static NativeLibraryLoader()
         {
-            string windir = Environment.GetEnvironmentVariable("windir");
-            if (!string.IsNullOrEmpty(windir) && windir.Contains(@"\") && Directory.Exists(windir))
+            string Windir = Environment.GetEnvironmentVariable("windir");
+            if (!string.IsNullOrEmpty(Windir) && Windir.Contains(@"\") && Directory.Exists(Windir))
             {
                 IsWindows = true;
             }
             else if (File.Exists(@"/proc/sys/kernel/ostype"))
             {
-                string osType = File.ReadAllText(@"/proc/sys/kernel/ostype");
-                if (osType.StartsWith("Linux", StringComparison.OrdinalIgnoreCase))
+                string OSType = File.ReadAllText(@"/proc/sys/kernel/ostype");
+                if (OSType.StartsWith("Linux", StringComparison.OrdinalIgnoreCase))
                 {
                     // Note: Android gets here too
                     IsLinux = true;
