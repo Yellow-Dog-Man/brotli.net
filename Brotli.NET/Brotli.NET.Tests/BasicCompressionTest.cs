@@ -1,8 +1,4 @@
-﻿using System;
-using Brotli;
-using Xunit;
-
-namespace TestBrotli
+﻿namespace Brotli.NET.Tests
 {
     public class BasicCompressionTest
     {

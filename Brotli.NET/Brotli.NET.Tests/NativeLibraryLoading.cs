@@ -1,8 +1,4 @@
-﻿using Brotli;
-using System;
-using Xunit;
-
-namespace TestBrotli
+﻿namespace Brotli.NET.Tests
 {
     public class NativeLibraryLoading
     {

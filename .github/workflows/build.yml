@@ -35,3 +35,10 @@ jobs:
       run: dotnet build Brotli.Core --configuration Release --no-restore
     - name: Test
       run: dotnet test --no-restore --configuration Release
+    - name: Upload Test Results
+      if: failure()
+      uses: actions/upload-artifact@v4
+      with:
+        name: verify-test-results
+        path: |
+          **/*.received.*

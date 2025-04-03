@@ -1,25 +1,9 @@
-﻿using System;
-using Xunit;
-using Brotli;
-using System.IO;
-using System.IO.Compression;
-using BrotliStream = Brotli.BrotliStream;
-using Shouldly;
+﻿using System.IO.Compression;
 
-namespace TestBrotli
+namespace Brotli.NET.Tests
 {
-    public static class Fixtures
-    {
-        public const string UncompressedPath = "Resource/BingCN.bin";
-        public const string CompressedPath = "Resource/BingCN_Compressed.bin";
-    }
     public class BrotliTest
     {
-        public static byte[] GetBytes(string path)
-        {
-            return File.ReadAllBytes(path);
-        }
-
         [Fact]
         public void TestErrorDetection()
         {
@@ -76,31 +60,6 @@ namespace TestBrotli
                     Assert.True(output.Length == 0);
                 }
             }
-        }
-
-        [Fact]
-        public void TestEncode()
-        {
-            var input = GetBytes(Fixtures.UncompressedPath);
-            var output = input.CompressToBrotli(11,22);
-            output.ShouldBe(GetBytes(Fixtures.CompressedPath));
-        }
-
-        [Fact]
-        public void TestDecode()
-        {
-            var input = GetBytes(Fixtures.CompressedPath);
-            var output = input.DecompressFromBrotli();
-            output.ShouldBe(GetBytes(Fixtures.UncompressedPath));
-        }
-
-        [Fact]
-        public void TestRoundTrip()
-        {
-            var input = GetBytes(Fixtures.UncompressedPath);
-            var compressed = input.CompressToBrotli(11, 22);
-            var decompressed = compressed.DecompressFromBrotli();
-            input.ShouldBe(decompressed);
         }
     }
 }
