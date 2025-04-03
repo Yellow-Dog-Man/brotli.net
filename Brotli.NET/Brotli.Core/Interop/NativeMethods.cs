@@ -5,43 +5,46 @@ namespace Brotli
 {
     static class WindowsLoader
     {
-        [DllImport("kernel32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
+        public const string LIBRARY_NAME = "kernel32.dll";
+        [DllImport(LIBRARY_NAME, CharSet = CharSet.Unicode, SetLastError = true)]
         public static extern IntPtr LoadLibrary(string dllFilePath);
 
-        [DllImport("kernel32.dll", CharSet = CharSet.Ansi, SetLastError = true)]
+        [DllImport(LIBRARY_NAME, CharSet = CharSet.Ansi, SetLastError = true)]
         public static extern IntPtr GetProcAddress(IntPtr hModule, string procedureName);
 
-        [DllImport("kernel32.dll")]
+        [DllImport(LIBRARY_NAME)]
         public static extern bool FreeLibrary(IntPtr hModule);
     }
 
     static class LinuxLoader
     {
-        [DllImport("libdl.so")]
+        public const string LIBRARY_NAME = "libdl.so";
+        [DllImport(LIBRARY_NAME)]
         internal static extern IntPtr dlopen(string filename, int flags);
 
-        [DllImport("libdl.so")]
+        [DllImport(LIBRARY_NAME)]
         internal static extern IntPtr dlerror();
 
-        [DllImport("libdl.so")]
+        [DllImport(LIBRARY_NAME)]
         internal static extern IntPtr dlsym(IntPtr handle, string symbol);
 
-        [DllImport("libdl.so")]
+        [DllImport(LIBRARY_NAME)]
         internal static extern int dlclose(IntPtr handle);
     }
 
     static class MacOSXLoader
     {
-        [DllImport("libSystem.dylib")]
+        public const string LIBRARY_NAME = "libSystem.dylib";
+        [DllImport(LIBRARY_NAME)]
         internal static extern IntPtr dlopen(string filename, int flags);
 
-        [DllImport("libSystem.dylib")]
+        [DllImport(LIBRARY_NAME)]
         internal static extern IntPtr dlerror();
 
-        [DllImport("libSystem.dylib")]
+        [DllImport(LIBRARY_NAME)]
         internal static extern IntPtr dlsym(IntPtr handle, string symbol);
 
-        [DllImport("libSystem.dylib")]
+        [DllImport(LIBRARY_NAME)]
         internal static extern int dlclose(IntPtr handle);
 
     }
@@ -53,16 +56,17 @@ namespace Brotli
     /// </summary>
     static class CoreCLRLoader
     {
-        [DllImport("libcoreclr.so")]
+        public const string LIBRARY_NAME = "libcoreclr.so";
+        [DllImport(LIBRARY_NAME)]
         internal static extern IntPtr dlopen(string filename, int flags);
 
-        [DllImport("libcoreclr.so")]
+        [DllImport(LIBRARY_NAME)]
         internal static extern IntPtr dlerror();
 
-        [DllImport("libcoreclr.so")]
+        [DllImport(LIBRARY_NAME)]
         internal static extern IntPtr dlsym(IntPtr handle, string symbol);
 
-        [DllImport("libcoreclr.so")]
+        [DllImport(LIBRARY_NAME)]
         internal static extern int dlclose(IntPtr handle);
     }
 }
