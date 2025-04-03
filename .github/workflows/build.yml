@@ -14,7 +14,12 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest
+    strategy:
+      fail-fast: true
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    name: build-and-test-${{matrix.os}}
+    runs-on: ${{ matrix.os }}
     defaults:
       run:
         working-directory: ./Brotli.NET
@@ -28,3 +33,5 @@ jobs:
       run: dotnet restore
     - name: Build
       run: dotnet build Brotli.Core --configuration Release --no-restore
+    - name: Test
+      run: dotnet test --no-restore --configuration Release
