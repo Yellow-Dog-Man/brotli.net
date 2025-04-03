@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Runtime.InteropServices;
-using System.Text;
 
 namespace Brotli
 {
-
     static class WindowsLoader
     {
         [DllImport("kernel32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
@@ -20,16 +17,16 @@ namespace Brotli
 
     static class LinuxLoader
     {
-        [DllImport("__Internal")]
+        [DllImport("libdl.so")]
         internal static extern IntPtr dlopen(string filename, int flags);
 
-        [DllImport("__Internal")]
+        [DllImport("libdl.so")]
         internal static extern IntPtr dlerror();
 
-        [DllImport("__Internal")]
+        [DllImport("libdl.so")]
         internal static extern IntPtr dlsym(IntPtr handle, string symbol);
 
-        [DllImport("__Internal")]
+        [DllImport("libdl.so")]
         internal static extern int dlclose(IntPtr handle);
     }
 
@@ -48,7 +45,6 @@ namespace Brotli
         internal static extern int dlclose(IntPtr handle);
 
     }
-
 
     /// <summary>
     /// Similarly as for Mono on Linux, we load symbols for
