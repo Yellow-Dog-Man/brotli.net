@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.13.35825.156 d17.13
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestBrotli", "TestBrotli\TestBrotli.csproj", "{1BB4F249-0ED5-49E8-97EC-4A5FF495B296}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Brotli.NET.Tests", "TestBrotli\Brotli.NET.Tests.csproj", "{1BB4F249-0ED5-49E8-97EC-4A5FF495B296}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Brotli.CompressionProvider.Sample", "Brotli.CompressionProvider.Sample\Brotli.CompressionProvider.Sample.csproj", "{5AD5F247-6913-47E7-8F46-1159E0843FC8}"
 EndProject
