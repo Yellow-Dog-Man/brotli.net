@@ -92,5 +92,14 @@ namespace TestBrotli
             var output = input.DecompressFromBrotli();
             Assert.Equal(GetBytes(Fixtures.UncompressedPath), output);
         }
+
+        [Fact]
+        public void TestRoundTrip()
+        {
+            var input = GetBytes(Fixtures.UncompressedPath);
+            var compressed = input.CompressToBrotli(11, 22);
+            var decompressed = compressed.DecompressFromBrotli();
+            Assert.Equal(input, decompressed);
+        }
     }
 }
