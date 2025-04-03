@@ -18,7 +18,8 @@ namespace Brotli
 
     static class LinuxLoader
     {
-        public const string LIBRARY_NAME = "libdl.so";
+        // Loosly based on: https://stackoverflow.com/questions/9954548/sigsegv-when-p-invoking-dlopen
+        public const string LIBRARY_NAME = "dl"; 
         [DllImport(LIBRARY_NAME)]
         internal static extern IntPtr dlopen(string filename, int flags);
 
