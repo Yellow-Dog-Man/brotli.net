@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
@@ -7,13 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Resource\BingCN.bin" />
-    <None Remove="Resource\BingCN_Compressed.bin" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Include="Resource\BingCN.bin" />
-    <EmbeddedResource Include="Resource\BingCN_Compressed.bin" />
+    <None Update="Resource\BingCN.bin" CopyToOutputDirectory="PreserveNewest"/>
+    <None Update="Resource\BingCN_Compressed.bin" CopyToOutputDirectory="PreserveNewest"/>
   </ItemGroup>
 
   <ItemGroup>
