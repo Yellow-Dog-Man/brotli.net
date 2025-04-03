@@ -4,6 +4,7 @@ using Brotli;
 using System.IO;
 using System.IO.Compression;
 using BrotliStream = Brotli.BrotliStream;
+using Shouldly;
 
 namespace TestBrotli
 {
@@ -82,7 +83,7 @@ namespace TestBrotli
         {
             var input = GetBytes(Fixtures.UncompressedPath);
             var output = input.CompressToBrotli(11,22);
-            Assert.Equal(GetBytes(Fixtures.CompressedPath), output);
+            output.ShouldBe(GetBytes(Fixtures.CompressedPath));
         }
 
         [Fact]
@@ -90,7 +91,7 @@ namespace TestBrotli
         {
             var input = GetBytes(Fixtures.CompressedPath);
             var output = input.DecompressFromBrotli();
-            Assert.Equal(GetBytes(Fixtures.UncompressedPath), output);
+            output.ShouldBe(GetBytes(Fixtures.UncompressedPath));
         }
 
         [Fact]
@@ -99,7 +100,7 @@ namespace TestBrotli
             var input = GetBytes(Fixtures.UncompressedPath);
             var compressed = input.CompressToBrotli(11, 22);
             var decompressed = compressed.DecompressFromBrotli();
-            Assert.Equal(input, decompressed);
+            input.ShouldBe(decompressed);
         }
     }
 }
