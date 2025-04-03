@@ -1,5 +1,5 @@
 # brotli.net
-The .net implement of the brotli algorithm,provide similar interface to Google offical API.
+.NET implementation of the brotli algorithm,provide similar interface to Google offical API.
 
 Quality and window control is supported.
 
@@ -73,6 +73,9 @@ protected void Application_PostAcquireRequestState(object sender, EventArgs e)
 For .net framework below v4.5, you can use version v2.0.2.4.
 
 For .net framework below v3.5, you can use version v1.0.19.
+
+## Native
+We have our [own fork of brotli](https://github.com/Yellow-Dog-Man/brotli), with some minor changes for build reasons.
 
 ## License
 MIT
