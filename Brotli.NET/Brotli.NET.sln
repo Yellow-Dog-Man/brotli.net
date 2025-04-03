@@ -5,8 +5,6 @@ VisualStudioVersion = 17.13.35825.156 d17.13
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestBrotli", "TestBrotli\TestBrotli.csproj", "{1BB4F249-0ED5-49E8-97EC-4A5FF495B296}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FX45TestBrotli", "FX45TestBrotli\FX45TestBrotli.csproj", "{4AF58FA9-B499-424B-BFF7-B8DDDF6481B7}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Brotli.CompressionProvider.Sample", "Brotli.CompressionProvider.Sample\Brotli.CompressionProvider.Sample.csproj", "{5AD5F247-6913-47E7-8F46-1159E0843FC8}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Brotli.Core", "Brotli.Core\Brotli.Core.csproj", "{8752A96F-E0D9-4185-8A53-CA9C98679549}"
@@ -21,10 +19,6 @@ Global
 		{1BB4F249-0ED5-49E8-97EC-4A5FF495B296}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1BB4F249-0ED5-49E8-97EC-4A5FF495B296}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1BB4F249-0ED5-49E8-97EC-4A5FF495B296}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4AF58FA9-B499-424B-BFF7-B8DDDF6481B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4AF58FA9-B499-424B-BFF7-B8DDDF6481B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4AF58FA9-B499-424B-BFF7-B8DDDF6481B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4AF58FA9-B499-424B-BFF7-B8DDDF6481B7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5AD5F247-6913-47E7-8F46-1159E0843FC8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5AD5F247-6913-47E7-8F46-1159E0843FC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5AD5F247-6913-47E7-8F46-1159E0843FC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
