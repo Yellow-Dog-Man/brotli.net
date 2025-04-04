@@ -1,47 +1,49 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace Brotli.NET.Tests.Snapshot;
 
-namespace Brotli.NET.Tests.Snapshot
+public class BrotliSnapshotting
 {
-    public class BrotliSnapshotting
+    private static string ROOT_PATH => CurrentFile.Directory();
+    private static string SNAPSHOT_PATH => Path.Combine(ROOT_PATH, "..", "Resource/brotli");
+
+    [Theory]
+    [MemberData(nameof(GetData))]
+    public void ValidateBrotli(string uncompressedFilePath, string compressedFilePath)
     {
-        private static string ROOT_PATH => CurrentFile.Directory();
-        private static string SNAPSHOT_PATH => Path.Combine(ROOT_PATH, "..", "Resource/brotli");
 
-        [Fact]
-        public void ValidateBrotli()
+        var inputBytes = File.ReadAllBytes(Path.Combine(SNAPSHOT_PATH, uncompressedFilePath));
+        var expectedCompressedBytes = File.ReadAllBytes(Path.Combine(SNAPSHOT_PATH, compressedFilePath));
+
+        var decompressedBytes = expectedCompressedBytes.DecompressFromBrotli();
+        var compressedBytes = inputBytes.CompressToBrotli();
+        
+        Assert.Equal(inputBytes, decompressedBytes);
+
+        //TODO: this fails, it must be because the window size or quality are wrong.
+        Assert.Equal(expectedCompressedBytes, compressedBytes);
+    }
+
+    public static IEnumerable<object[]> GetData()
+    {
+        var files = Directory.EnumerateFiles(SNAPSHOT_PATH);
+        var uncompressed = files.Where(file => !IsCompressed(file));
+        var compressed = files.Where(file => IsCompressed(file));
+
+        foreach (string uncompressFilePath in uncompressed)
         {
-            var files = Directory.EnumerateFiles(SNAPSHOT_PATH);
-            var uncompressed = files.Where(file => !IsCompressed(file));
-            var compressed = files.Where(file => IsCompressed(file));
-
-            foreach (string uncompressFilePath in uncompressed)
+            var compressedFilePath = compressed.FirstOrDefault(file => file.StartsWith(uncompressFilePath));
+            if (!string.IsNullOrEmpty(compressedFilePath))
             {
-                Console.WriteLine(uncompressFilePath);
-                Console.WriteLine(Path.GetExtension(uncompressFilePath));
-                var compressedFilePath = compressed.FirstOrDefault(file => file.StartsWith(uncompressFilePath));
-                if (string.IsNullOrEmpty(compressedFilePath))
-                {
-                    Console.WriteLine("NO Match");
-                    continue;
-                }
-                    
-
-                var inputBytes = File.ReadAllBytes(uncompressFilePath);
-                var expectedBytes = File.ReadAllBytes(compressedFilePath);
-
-                var outputBytes = inputBytes.CompressToBrotli();
-
-                Assert.Equal(expectedBytes, outputBytes);
+                yield return new object[] { Path.GetFileName(uncompressFilePath), Path.GetFileName(compressedFilePath), 22u, 5u };
+                yield return new object[] { Path.GetFileName(uncompressFilePath), Path.GetFileName(compressedFilePath), 22u, 11u };
+                yield return new object[] { Path.GetFileName(uncompressFilePath), Path.GetFileName(compressedFilePath), 22u, 0u };
+                yield return new object[] { Path.GetFileName(uncompressFilePath), Path.GetFileName(compressedFilePath), 22u, 10u };
+                yield return new object[] { Path.GetFileName(uncompressFilePath), Path.GetFileName(compressedFilePath), 22u, 6u };
             }
         }
+    }
 
-        private bool IsCompressed(string file)
-        {
-            return file.EndsWith("compressed");
-        }
+    private static bool IsCompressed(string file)
+    {
+        return file.EndsWith("compressed");
     }
 }
