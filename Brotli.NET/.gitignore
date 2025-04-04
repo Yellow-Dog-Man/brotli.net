@@ -249,16 +249,5 @@ paket-files/
 #msbuild output
 @Output/
 
-
-
-
-/Source/NewCRM.APIProxy/NewCRM.APIProxy.csproj.user
-/Source/NewCRM.Service.Finance/NewCRM.Service.Finance.csproj.user
-/Source/NewCRM.Service.Finance.Base/NewCRM.Service.Finance.Base.csproj.user
-/Source/WestWin.Service.Coupon/WestWin.Service.Coupon.csproj.user
-/Source/WestWin.Service.Coupon.Base/WestWin.Service.Coupon.Base.csproj.user
-/Source/WestWin.Service.Coupon.WebApi/WestWin.Service.Coupon.WebApi.csproj.user
-/Source/WestWin.Service.WebRoleAccess.Base/WestWin.Service.WebRoleAccess.Base.csproj.user
-/Source/Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
-/Source/Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-/Source/NewCRM.Service.ObjectStore.Base/NewCRM.Service.ObjectStore.Base.csproj.user
+# Verify
+*.received.*

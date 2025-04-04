@@ -6,6 +6,9 @@ namespace Brotli
 {
     public class Brolib
     {
+        public const int DEFAULT_QUALITY = 5;
+        public const int DEFAULT_WINDOW = 22;
+
         static bool UseX86 = IntPtr.Size == 4;
         #region Encoder
         public static IntPtr BrotliEncoderCreateInstance()
