@@ -13,7 +13,7 @@
     public class StaticFileTests
     {
         [Fact]
-        public Task Run() => VerifyChecks.Run();
+        public Task VerifyVerify() => VerifyChecks.Run();
 
         public static byte[] GetBytes(string path)
         {

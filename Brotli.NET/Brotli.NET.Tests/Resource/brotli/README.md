@@ -1,7 +1,5 @@
 # Fixtures
 
-Test Fixures/Files from: https://github.com/Yellow-Dog-Man/brotli/tree/master/tests/testdata
+Test Fixures/Files from [native source](https://github.com/Yellow-Dog-Man/brotli/tree/master/tests/testdata).
 
-Anything "weird", was skipped. We were purely looking for uncompressed -> compressed.
-
-Also we have no idea what quality or window settings were used >.<.
+We were purely looking for uncompressed -> compressed test data to run through [Verify](https://github.com/VerifyTests/Verify). So the compressed files and anything block based was skipped.
