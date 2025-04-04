@@ -10,7 +10,7 @@
         public const int FIXTURE_WINDOW = 22;
     }
 
-    public class SnapshotTests
+    public class StaticFileTests
     {
         [Fact]
         public Task Run() => VerifyChecks.Run();

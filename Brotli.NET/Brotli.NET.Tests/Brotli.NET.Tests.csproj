@@ -10,6 +10,12 @@
   <ItemGroup>
     <None Update="Resource\BingCN.bin" CopyToOutputDirectory="PreserveNewest" />
     <None Update="Resource\BingCN_Compressed.bin" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="Snapshot\StaticFileTests.TestDecompress.verified.bin">
+      <DependentUpon>StaticFileTests.cs</DependentUpon>
+    </None>
+    <None Update="Snapshot\StaticFileTests.TestCompress.verified.bin">
+      <DependentUpon>StaticFileTests.cs</DependentUpon>
+    </None>
   </ItemGroup>
 
   <ItemGroup>
