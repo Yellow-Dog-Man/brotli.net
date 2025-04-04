@@ -41,8 +41,8 @@ namespace Brotli
                 {
                     throw new BrotliException("Unable to create brotli encoder instance");
                 }
-                Brolib.BrotliEncoderSetParameter(_state, BrotliEncoderParameter.Quality, 5);
-                Brolib.BrotliEncoderSetParameter(_state, BrotliEncoderParameter.LGWin, 22);
+                Brolib.BrotliEncoderSetParameter(_state, BrotliEncoderParameter.Quality, Brolib.DEFAULT_QUALITY);
+                Brolib.BrotliEncoderSetParameter(_state, BrotliEncoderParameter.LGWin, Brolib.DEFAULT_WINDOW);
             }
             else
             {
