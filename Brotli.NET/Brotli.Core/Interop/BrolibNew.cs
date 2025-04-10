@@ -5,7 +5,7 @@ namespace Brotli
 {
     internal class BrolibNew
     {
-        const string LIBRARY_NAME = "brolib";
+        const string LIBRARY_NAME = "brolib.dll";
 
         #region Encoder
         [DllImport(LIBRARY_NAME)]
@@ -16,8 +16,8 @@ namespace Brotli
 
         [DllImport(LIBRARY_NAME)]
         internal static extern bool BrotliEncoderCompressStream(
-            IntPtr state, BrotliEncoderOperation op, ref UInt32 availableIn,
-            ref IntPtr nextIn, ref UInt32 availableOut, ref IntPtr nextOut, out UInt32 totalOut);
+            IntPtr state, BrotliEncoderOperation op, ref UInt64 availableIn,
+            ref IntPtr nextIn, ref UInt64 availableOut, ref IntPtr nextOut, out UInt64 totalOut);
 
         [DllImport(LIBRARY_NAME)]
         internal static extern bool BrotliEncoderIsFinished(IntPtr state);

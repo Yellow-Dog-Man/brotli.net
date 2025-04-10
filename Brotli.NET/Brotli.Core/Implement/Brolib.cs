@@ -28,7 +28,6 @@ namespace Brotli
             }
         }
 
-
         public static IntPtr GetModuleHandle(String moduleName)
         {
             IntPtr r = IntPtr.Zero;
@@ -74,8 +73,21 @@ namespace Brotli
             IntPtr state, BrotliEncoderOperation op, ref UInt32 availableIn,
             ref IntPtr nextIn, ref UInt32 availableOut, ref IntPtr nextOut, out UInt32 totalOut)
         {
+
             if (UseNewFlow)
-                return BrolibNew.BrotliEncoderCompressStream(state, op, ref availableIn, ref nextIn, ref availableOut, ref nextOut, out totalOut);
+            {
+                UInt64 availableInL = availableIn;
+                UInt64 availableOutL = availableOut;
+                UInt64 totalOutL = 0;
+
+                var r = BrolibNew.BrotliEncoderCompressStream(state, op, ref availableInL, ref nextIn, ref availableOutL, ref nextOut, out totalOutL);
+
+                availableIn = (UInt32)availableInL;
+                availableOut = (UInt32)availableOutL;
+                totalOut = (UInt32)totalOutL;
+
+                return r;
+            }
             if (UseX86)
             {
                 return Brolib32.BrotliEncoderCompressStream(state, op, ref availableIn, ref nextIn, ref availableOut, ref nextOut, out totalOut);
@@ -213,7 +225,11 @@ namespace Brotli
         public static void BrotliDecoderDestroyInstance(IntPtr state)
         {
             if (UseNewFlow)
+            {
                 BrolibNew.BrotliDecoderDestroyInstance(state);
+                return;
+            }
+
             if (UseX86)
             {
                 Brolib32.BrotliDecoderDestroyInstance(state);
