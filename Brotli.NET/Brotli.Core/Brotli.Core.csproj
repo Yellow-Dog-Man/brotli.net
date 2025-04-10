@@ -31,7 +31,8 @@ For more document,please visit https://github.com/XieJJ99/brotli.net.</Descripti
         </None>    
     </ItemGroup>
     <ItemGroup>
-	    <NativeLibs Include="runtimes\**\*.*" />
+	    <NativeLibs Include="runtimes\linux-x64\*.so"/>
+		<NativeLibs Include="runtimes\win-x64\*.so"/>
 	    <!-- Copy the Native DLLs to the output directory but not the publish directory -->
 	    <ContentWithTargetPath Include="@(NativeLibs)">
 		    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
