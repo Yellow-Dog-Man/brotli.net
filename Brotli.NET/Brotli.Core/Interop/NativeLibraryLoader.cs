@@ -3,6 +3,7 @@ using System.Linq;
 using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
+using System.Reflection; // DO NOT REMOVE
 
 namespace Brotli
 {
@@ -111,9 +112,9 @@ namespace Brotli
         internal static string[] GetPossibleRuntimeDirectories()
         {
 #if NET35 || NET40 || NET462
-            var assemblyDirectory = Path.GetDirectoryName(typeof(LibPathBootStrapper).Assembly.Location);
-#else
             var assemblyDirectory = Path.GetDirectoryName(typeof(LibPathBootStrapper).GetTypeInfo().Assembly.Location);
+#else
+            var assemblyDirectory = Path.GetDirectoryName(typeof(LibPathBootStrapper).Assembly.Location);
 #endif
             var platform = "win";
             if (IsLinux)
