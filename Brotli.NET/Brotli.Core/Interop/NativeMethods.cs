@@ -6,6 +6,7 @@ namespace Brotli
     static class WindowsLoader
     {
         public const string LIBRARY_NAME = "kernel32.dll";
+
         [DllImport(LIBRARY_NAME, CharSet = CharSet.Unicode, SetLastError = true)]
         public static extern IntPtr LoadLibrary(string dllFilePath);
 

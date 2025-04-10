@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Linq;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Reflection;
 using System.Runtime.InteropServices;
-using System.Text;
 
 namespace Brotli
 {
@@ -173,10 +170,10 @@ namespace Brotli
                 errorMsg = null;
                 //var handle = GetWin32ModuleHandle(libraryPath);
                 //if (handle != IntPtr.Zero) return handle;
-                var handle= WindowsLoader.LoadLibrary(libraryPath);
+                var handle = WindowsLoader.LoadLibrary(libraryPath);
                 if (handle== IntPtr.Zero)
                 {
-                    throw new System.ComponentModel.Win32Exception($"failed to load library {libraryPath}");
+                    throw new System.ComponentModel.Win32Exception($"failed to load library {libraryPath} with error: {Marshal.GetLastWin32Error()}");
                 }
                 return handle;
             }
