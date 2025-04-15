@@ -1,7 +1,17 @@
 ﻿namespace Brotli
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// <see href="https://github.com/google/brotli/blob/master/c/include/brotli/encode.h#L135">See Source</see>
+    /// </remarks>
     public enum BrotliEncoderParameter : int
     {
+        /// <summary>
+        /// Controls the Brotli Encoding "Mode". Leave this at 0.
+        /// </summary>
+        /// <remarks><see href="https://github.com/google/brotli/blob/master/c/include/brotli/encode.h#L46">See Source</see></remarks>
         Mode = 0,
         /// <summary>
         ///  Controls the compression-speed vs compression-density tradeoffs. The higher

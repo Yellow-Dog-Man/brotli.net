@@ -14,17 +14,31 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    name: build-and-test-${{matrix.os}}
+    runs-on: ${{ matrix.os }}
     defaults:
       run:
         working-directory: ./Brotli.NET
     steps:
     - uses: actions/checkout@v4
-    - name: Setup .NET 7
+    - name: Setup .NET
       uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: 7.0.x
+        dotnet-version: 9.0.x
     - name: Install dependencies
       run: dotnet restore
     - name: Build
       run: dotnet build Brotli.Core --configuration Release --no-restore
+    - name: Test
+      run: dotnet test --no-restore --configuration Release
+    - name: Upload Test Results
+      if: failure()
+      uses: actions/upload-artifact@v4
+      with:
+        name: verify-test-results-${{matrix.os}}-${{github.run_id}}
+        path: |
+          **/*.received.*

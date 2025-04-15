@@ -6,7 +6,19 @@ namespace Brotli
 {
     public class Brolib
     {
-        static bool UseX86 = IntPtr.Size == 4;
+        public const uint DEFAULT_QUALITY = 5;
+        public const uint DEFAULT_WINDOW = 22;
+        
+        /// <summary>
+        /// The Default LGBlock value.
+        /// </summary>
+        /// <remarks>0 means let the encoder decide. See <see cref="BrotliEncoderParameter.LGBlock"/></remarks>
+        public const uint DEFAULT_BLOCK_SIZE = 0;
+
+        //static bool UseX86 = IntPtr.Size == 4;
+
+        static bool UseX86 = false; //TMP
+
         #region Encoder
         public static IntPtr BrotliEncoderCreateInstance()
         {
@@ -19,7 +31,6 @@ namespace Brotli
                 return Brolib64.BrotliEncoderCreateInstance(IntPtr.Zero, IntPtr.Zero, IntPtr.Zero);
             }
         }
-
 
         public static IntPtr GetModuleHandle(String moduleName)
         {
@@ -57,23 +68,6 @@ namespace Brotli
                 return Brolib64.BrotliEncoderSetParameter(state, parameter, value);
             }
         }
-
-        //@to rewrite using the following APIs
-        //BrotliGetDictionary
-        //BrotliGetTransforms
-        //BrotliSetDictionaryData
-        //BrotliTransformDictionaryWord
-        //public static void BrotliEncoderSetCustomDictionary(IntPtr state, UInt32 size, IntPtr dict)
-        //{
-        //    if (UseX86)
-        //    {
-        //        Brolib32.BrotliEncoderSetCustomDictionary(state, size, dict);
-        //    }
-        //    else
-        //    {
-        //        Brolib64.BrotliEncoderSetCustomDictionary(state, size, dict);
-        //    }
-        //}
 
         public static bool BrotliEncoderCompressStream(
             IntPtr state, BrotliEncoderOperation op, ref UInt32 availableIn,
@@ -148,10 +142,10 @@ namespace Brotli
             }
         }
 
-
-
         #endregion
+
         #region Decoder
+
         public static IntPtr BrotliDecoderCreateInstance()
         {
             if (UseX86)
@@ -175,24 +169,6 @@ namespace Brotli
                 return Brolib64.BrotliDecoderSetParameter(state, param, value);
             }
         }
-
-
-        //@to rewrite using the following APIs
-        //BrotliGetDictionary
-        //BrotliGetTransforms
-        //BrotliSetDictionaryData
-        //BrotliTransformDictionaryWord
-        //public static void BrotliDecoderSetCustomDictionary(IntPtr state, UInt32 size, IntPtr dict)
-        //{
-        //    if (UseX86)
-        //    {
-        //        Brolib32.BrotliDecoderSetCustomDictionary(state, size, dict);
-        //    }
-        //    else
-        //    {
-        //        Brolib64.BrotliDecoderSetCustomDictionary(state, size, dict);
-        //    }
-        //}
 
         public static BrotliDecoderResult BrotliDecoderDecompressStream(
             IntPtr state, ref UInt32 availableIn,
@@ -291,8 +267,6 @@ namespace Brotli
                 return Marshal.PtrToStringAnsi(r);
             }
             return String.Empty;
-
-
         }
 
         public static IntPtr BrotliEncoderTakeOutput(IntPtr state, ref UInt32 size)
@@ -309,7 +283,6 @@ namespace Brotli
                 return r;
             }
         }
-
 
         #endregion
     }

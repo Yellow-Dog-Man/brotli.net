@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Linq;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Reflection;
 using System.Runtime.InteropServices;
-using System.Text;
+using System.Reflection; // DO NOT REMOVE
 
 namespace Brotli
 {
@@ -114,9 +112,9 @@ namespace Brotli
         internal static string[] GetPossibleRuntimeDirectories()
         {
 #if NET35 || NET40 || NET462
-            var assemblyDirectory = Path.GetDirectoryName(typeof(LibPathBootStrapper).Assembly.Location);
-#else
             var assemblyDirectory = Path.GetDirectoryName(typeof(LibPathBootStrapper).GetTypeInfo().Assembly.Location);
+#else
+            var assemblyDirectory = Path.GetDirectoryName(typeof(LibPathBootStrapper).Assembly.Location);
 #endif
             var platform = "win";
             if (IsLinux)
@@ -173,10 +171,10 @@ namespace Brotli
                 errorMsg = null;
                 //var handle = GetWin32ModuleHandle(libraryPath);
                 //if (handle != IntPtr.Zero) return handle;
-                var handle= WindowsLoader.LoadLibrary(libraryPath);
+                var handle = WindowsLoader.LoadLibrary(libraryPath);
                 if (handle== IntPtr.Zero)
                 {
-                    throw new System.ComponentModel.Win32Exception($"failed to load library {libraryPath}");
+                    throw new System.ComponentModel.Win32Exception($"failed to load library {libraryPath} with error: {Marshal.GetLastWin32Error()}");
                 }
                 return handle;
             }

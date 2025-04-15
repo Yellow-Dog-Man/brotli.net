@@ -15,12 +15,12 @@ namespace Brotli
         /// <param name="quality">quality,0~11</param>
         /// <param name="window">compress window(10~24)</param>
         /// <returns>compressed bytes</returns>
-        public static byte[] CompressToBrotli(this byte[] rawData, uint quality = 5, uint window = 22)
+        public static byte[] CompressToBrotli(this byte[] rawData, uint quality = Brolib.DEFAULT_QUALITY, uint window = Brolib.DEFAULT_WINDOW, uint blockSize = Brolib.DEFAULT_BLOCK_SIZE)
         {
             if (rawData == null) throw new ArgumentNullException(nameof(rawData));
             using (var msInput = new System.IO.MemoryStream(rawData))
             {
-                return CompressToBrotli(msInput, quality, window);
+                return CompressToBrotli(msInput, quality, window, blockSize);
             }
         }
 
@@ -31,11 +31,11 @@ namespace Brotli
         /// <param name="quality">quality,0~11</param>
         /// <param name="window">compress window(10~24)</param>
         /// <returns>compressed bytes</returns>
-        public static byte[] CompressToBrotli(this System.IO.Stream inStream, uint quality = 5, uint window = 22)
+        public static byte[] CompressToBrotli(this System.IO.Stream inStream, uint quality = Brolib.DEFAULT_QUALITY, uint window = Brolib.DEFAULT_WINDOW, uint blockSize = Brolib.DEFAULT_BLOCK_SIZE)
         {
             using (System.IO.MemoryStream msOutput = new System.IO.MemoryStream())
             {
-                CompressToBrotli(inStream, msOutput, quality, window);
+                CompressToBrotli(inStream, msOutput, quality, window, blockSize);
                 var output = msOutput.ToArray();
                 return output;
             }
@@ -48,12 +48,13 @@ namespace Brotli
         /// <param name="destStream">dest output stream</param>
         /// <param name="quality">quality,0~11</param>
         /// <param name="window">compress window(10~24)</param>
-        public static void CompressToBrotli(this System.IO.Stream inStream, System.IO.Stream destStream, uint quality = 5, uint window = 22)
+        public static void CompressToBrotli(this System.IO.Stream inStream, System.IO.Stream destStream, uint quality = Brolib.DEFAULT_QUALITY, uint window = Brolib.DEFAULT_WINDOW, uint blockSize = Brolib.DEFAULT_BLOCK_SIZE)
         {
             using (BrotliStream bs = new BrotliStream(destStream, System.IO.Compression.CompressionMode.Compress))
             {
                 bs.SetQuality(quality);
                 bs.SetWindow(window);
+                bs.SetBlocksize(blockSize);
                 inStream.CopyTo(bs);
                 bs.Close();
             }

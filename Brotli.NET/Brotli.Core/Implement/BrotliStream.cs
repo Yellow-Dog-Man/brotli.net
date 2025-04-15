@@ -41,8 +41,9 @@ namespace Brotli
                 {
                     throw new BrotliException("Unable to create brotli encoder instance");
                 }
-                Brolib.BrotliEncoderSetParameter(_state, BrotliEncoderParameter.Quality, 5);
-                Brolib.BrotliEncoderSetParameter(_state, BrotliEncoderParameter.LGWin, 22);
+                SetWindow(Brolib.DEFAULT_WINDOW);
+                SetQuality(Brolib.DEFAULT_QUALITY);
+                SetBlocksize(Brolib.DEFAULT_BLOCK_SIZE);
             }
             else
             {
@@ -78,7 +79,7 @@ namespace Brotli
         {
             if (quality < 0 || quality > 11)
             {
-                throw new ArgumentException("quality", "the range of quality is 0~11");
+                throw new ArgumentException("the range of quality is 0~11", nameof(quality));
             }
             Brolib.BrotliEncoderSetParameter(_state, BrotliEncoderParameter.Quality, quality);
         }
@@ -91,9 +92,20 @@ namespace Brotli
         {
             if (window < 10 || window > 24)
             {
-                throw new ArgumentException("window", "the range of window is 10~24");
+                throw new ArgumentException("the range of window is 10~24", nameof(window));
             }
             Brolib.BrotliEncoderSetParameter(_state, BrotliEncoderParameter.LGWin, window);
+        }
+
+        /// <summary>
+        /// Set the compress LGBlock parameter(16-24)
+        /// </summary>
+        public void SetBlocksize(uint blockSize)
+        {
+            if ((blockSize < 16 || blockSize > 24) && blockSize !=0)
+                throw new ArgumentException("the range of block size is is 16~24 or 0", nameof(blockSize));
+
+            Brolib.BrotliEncoderSetParameter(_state, BrotliEncoderParameter.LGBlock, blockSize);
         }
 
         public override bool CanRead
@@ -252,7 +264,6 @@ namespace Brotli
         public override async Task<int> ReadAsync(byte[] buffer, int offset, int count, CancellationToken cancellationToken)
         {
             if (_mode != CompressionMode.Decompress) throw new BrotliException("Can't read on this stream");
-
 
             int bytesRead = (int)(_intermediateStream.Length - _readOffset);
             uint totalCount = 0;
