@@ -15,7 +15,10 @@ namespace Brotli
         /// <remarks>0 means let the encoder decide. See <see cref="BrotliEncoderParameter.LGBlock"/></remarks>
         public const uint DEFAULT_BLOCK_SIZE = 0;
 
-        static bool UseX86 = IntPtr.Size == 4;
+        //static bool UseX86 = IntPtr.Size == 4;
+
+        static bool UseX86 = false; //TMP
+
         #region Encoder
         public static IntPtr BrotliEncoderCreateInstance()
         {
