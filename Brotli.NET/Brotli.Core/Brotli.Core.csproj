@@ -1,8 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <TargetFrameworks>net462;netstandard2.0</TargetFrameworks>
-    <!--<Version>2.1.1.0</Version>-->
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageId>YellowDogMan.Brotli.NET</PackageId>
     <Authors>Jinjun Xie, Yellow Dog Man Studios s.r.o</Authors>
@@ -16,10 +14,8 @@
 The library use the native runtime and its performance should be better than System.IO.Compress.BrotliStream.
 For more document,please visit https://github.com/XieJJ99/brotli.net.</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <!--AssemblyVersion>2.1.1.0</AssemblyVersion>-->
   </PropertyGroup>
   <ItemGroup>
-    <!-- <None Update="runtimes\**" Pack="true" PackagePath="." /> -->
     <None Include="runtimes\**">
       <PackagePath>runtimes</PackagePath>
       <Pack>true</Pack>
@@ -27,11 +23,6 @@ For more document,please visit https://github.com/XieJJ99/brotli.net.</Descripti
   </ItemGroup>
   <Import Project="build\Brotli.NET.targets" />
   <ItemGroup>
-    <!-- <None Update="runtimes\**" Pack="true" PackagePath="." /> -->
-    <!-- <None Include="runtimes\**\*.dll">
-      <PackagePath>build\runtimes</PackagePath>
-      <Pack>true</Pack>
-    </None>     -->
     <None Include="build\Brotli.NET.targets">
       <PackagePath>build</PackagePath>
       <Pack>true</Pack>
