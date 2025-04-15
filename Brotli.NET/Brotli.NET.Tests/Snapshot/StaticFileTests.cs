@@ -6,8 +6,9 @@
         public const string CompressedPath = "Resource/BingCN_Compressed.bin";
 
         // Copied from original tests but now preserved as constant: https://github.com/Yellow-Dog-Man/brotli.net/commit/0f4bc44c8466cc19777612639ca225de7cbcd644
-        public const int FIXTURE_QUALITY = 11;
-        public const int FIXTURE_WINDOW = 22;
+        public const uint FIXTURE_QUALITY = 11;
+        public const uint FIXTURE_WINDOW = 22;
+        public const uint FIXTURE_BLOCK_SIZE = 24;
     }
 
     public class StaticFileTests
@@ -24,7 +25,7 @@
         public Task TestCompress()
         {
             var input = GetBytes(Fixtures.UncompressedPath);
-            var output = input.CompressToBrotli(Fixtures.FIXTURE_QUALITY, Fixtures.FIXTURE_WINDOW);
+            var output = input.CompressToBrotli(Fixtures.FIXTURE_QUALITY, Fixtures.FIXTURE_WINDOW, Fixtures.FIXTURE_BLOCK_SIZE);
             return Verify(output);
         }
 
@@ -40,7 +41,7 @@
         public void TestRoundTrip()
         {
             var input = GetBytes(Fixtures.UncompressedPath);
-            var compressed = input.CompressToBrotli(Fixtures.FIXTURE_QUALITY, Fixtures.FIXTURE_WINDOW);
+            var compressed = input.CompressToBrotli(Fixtures.FIXTURE_QUALITY, Fixtures.FIXTURE_WINDOW, Fixtures.FIXTURE_BLOCK_SIZE);
             var decompressed = compressed.DecompressFromBrotli();
             Assert.Equal(input, decompressed);
         }

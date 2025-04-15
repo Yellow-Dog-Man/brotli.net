@@ -41,8 +41,8 @@ namespace Brotli
                 {
                     throw new BrotliException("Unable to create brotli encoder instance");
                 }
-                SetWindow(Brolib.DEFAULT_QUALITY);
-                SetQuality(Brolib.DEFAULT_WINDOW);
+                SetWindow(Brolib.DEFAULT_WINDOW);
+                SetQuality(Brolib.DEFAULT_QUALITY);
                 SetBlocksize(Brolib.DEFAULT_BLOCK_SIZE);
             }
             else
@@ -102,8 +102,10 @@ namespace Brotli
         /// </summary>
         public void SetBlocksize(uint blockSize)
         {
-            if (blockSize < 16 || blockSize > 24)
-                throw new ArgumentException("the range of block size is is 16~24", nameof(blockSize));
+            if ((blockSize < 16 || blockSize > 24) && blockSize !=0)
+                throw new ArgumentException("the range of block size is is 16~24 or 0", nameof(blockSize));
+
+            Brolib.BrotliEncoderSetParameter(_state, BrotliEncoderParameter.LGBlock, blockSize);
         }
 
         public override bool CanRead

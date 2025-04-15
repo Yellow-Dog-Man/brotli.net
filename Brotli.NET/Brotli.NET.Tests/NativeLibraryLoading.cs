@@ -23,7 +23,7 @@
             var decodeVersion = Brolib.BrotliDecoderVersion();
             var encodeVersion = Brolib.BrotliEncoderVersion();
 
-            // we expect these to be the same version as our native library is compiled with both in one file
+            // we expect these to be the same version as our native library is compiled with both encode and decode in one file
             // If this isn't the case then something is very wrong.
             Assert.Equal(decodeVersion, encodeVersion);
 

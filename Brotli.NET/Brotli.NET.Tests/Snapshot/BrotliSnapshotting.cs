@@ -9,8 +9,9 @@ public class BrotliSnapshotting
     private static string SNAPSHOT_PATH => Path.Combine(ROOT_PATH, "..", "Resource/brotli");
 
     // These are both the "MAX" values and based on the native library.
-    public const int SNAPSHOT_WINDOW = 24;
-    public const int SNAPSHOT_QUALITY = 11;
+    public const uint SNAPSHOT_WINDOW = 24;
+    public const uint SNAPSHOT_QUALITY = 11;
+    public const uint SNAPSHOT_BLOCK_SIZE = 24;
 
     [Theory]
     [MemberData(nameof(GetCompressData))]
@@ -18,7 +19,7 @@ public class BrotliSnapshotting
     {
         // Files compressed with identical parameters, should result in identical outputs, verify is perfect for this.
         var inputBytes = File.ReadAllBytes(Path.Combine(SNAPSHOT_PATH, uncompressedFilePath));
-        var compressedBytes = inputBytes.CompressToBrotli(quality, window);
+        var compressedBytes = inputBytes.CompressToBrotli(quality, window, SNAPSHOT_BLOCK_SIZE);
         
         return Verify(compressedBytes).UseParameters(uncompressedFilePath, quality, window); 
     }
@@ -30,7 +31,7 @@ public class BrotliSnapshotting
         var inputBytes = File.ReadAllBytes(Path.Combine(SNAPSHOT_PATH, uncompressedFilePath));
 
         // Compress
-        var compressedBytes = inputBytes.CompressToBrotli();
+        var compressedBytes = inputBytes.CompressToBrotli(SNAPSHOT_QUALITY, SNAPSHOT_WINDOW, SNAPSHOT_BLOCK_SIZE);
 
         // Immediately de-compress
         var decompressedBytes = compressedBytes.DecompressFromBrotli();
