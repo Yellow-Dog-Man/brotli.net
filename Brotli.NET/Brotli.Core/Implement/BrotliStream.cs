@@ -265,7 +265,6 @@ namespace Brotli
         {
             if (_mode != CompressionMode.Decompress) throw new BrotliException("Can't read on this stream");
 
-
             int bytesRead = (int)(_intermediateStream.Length - _readOffset);
             uint totalCount = 0;
             Boolean endOfStream = false;
