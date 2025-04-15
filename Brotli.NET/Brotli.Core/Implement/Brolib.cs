@@ -61,23 +61,6 @@ namespace Brotli
             }
         }
 
-        //@to rewrite using the following APIs
-        //BrotliGetDictionary
-        //BrotliGetTransforms
-        //BrotliSetDictionaryData
-        //BrotliTransformDictionaryWord
-        //public static void BrotliEncoderSetCustomDictionary(IntPtr state, UInt32 size, IntPtr dict)
-        //{
-        //    if (UseX86)
-        //    {
-        //        Brolib32.BrotliEncoderSetCustomDictionary(state, size, dict);
-        //    }
-        //    else
-        //    {
-        //        Brolib64.BrotliEncoderSetCustomDictionary(state, size, dict);
-        //    }
-        //}
-
         public static bool BrotliEncoderCompressStream(
             IntPtr state, BrotliEncoderOperation op, ref UInt32 availableIn,
             ref IntPtr nextIn, ref UInt32 availableOut, ref IntPtr nextOut, out UInt32 totalOut)
