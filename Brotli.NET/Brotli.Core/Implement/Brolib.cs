@@ -32,7 +32,6 @@ namespace Brotli
             }
         }
 
-
         public static IntPtr GetModuleHandle(String moduleName)
         {
             IntPtr r = IntPtr.Zero;
@@ -143,10 +142,10 @@ namespace Brotli
             }
         }
 
-
-
         #endregion
+
         #region Decoder
+
         public static IntPtr BrotliDecoderCreateInstance()
         {
             if (UseX86)
