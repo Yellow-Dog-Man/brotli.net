@@ -8,7 +8,6 @@ namespace Brotli
     {
         public const uint DEFAULT_QUALITY = 5;
         public const uint DEFAULT_WINDOW = 22;
-
         
         /// <summary>
         /// The Default LGBlock value.
@@ -169,24 +168,6 @@ namespace Brotli
             }
         }
 
-
-        //@to rewrite using the following APIs
-        //BrotliGetDictionary
-        //BrotliGetTransforms
-        //BrotliSetDictionaryData
-        //BrotliTransformDictionaryWord
-        //public static void BrotliDecoderSetCustomDictionary(IntPtr state, UInt32 size, IntPtr dict)
-        //{
-        //    if (UseX86)
-        //    {
-        //        Brolib32.BrotliDecoderSetCustomDictionary(state, size, dict);
-        //    }
-        //    else
-        //    {
-        //        Brolib64.BrotliDecoderSetCustomDictionary(state, size, dict);
-        //    }
-        //}
-
         public static BrotliDecoderResult BrotliDecoderDecompressStream(
             IntPtr state, ref UInt32 availableIn,
             ref IntPtr nextIn, ref UInt32 availableOut, ref IntPtr nextOut, out UInt32 totalOut)
@@ -284,8 +265,6 @@ namespace Brotli
                 return Marshal.PtrToStringAnsi(r);
             }
             return String.Empty;
-
-
         }
 
         public static IntPtr BrotliEncoderTakeOutput(IntPtr state, ref UInt32 size)
@@ -302,7 +281,6 @@ namespace Brotli
                 return r;
             }
         }
-
 
         #endregion
     }
