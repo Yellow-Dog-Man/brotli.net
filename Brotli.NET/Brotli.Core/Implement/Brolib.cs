@@ -6,8 +6,15 @@ namespace Brotli
 {
     public class Brolib
     {
-        public const int DEFAULT_QUALITY = 5;
-        public const int DEFAULT_WINDOW = 22;
+        public const uint DEFAULT_QUALITY = 5;
+        public const uint DEFAULT_WINDOW = 22;
+
+        
+        /// <summary>
+        /// The Default LGBlock value.
+        /// </summary>
+        /// <remarks>0 means let the encoder decide. See <see cref="BrotliEncoderParameter.LGBlock"/></remarks>
+        public const uint DEFAULT_BLOCK_SIZE = 0;
 
         static bool UseX86 = IntPtr.Size == 4;
         #region Encoder
