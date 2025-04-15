@@ -63,4 +63,5 @@
 *.verified.json text eol=lf working-tree-encoding=UTF-8
 *.verified.bin binary eol=lf working-tree-encoding=UTF-8
 Brotli.NET/Brotli.NET.Tests/Resource/brotli/* text eol=lf working-tree-encoding=UTF-8
+Brotli.NET/Brotli.NET.Tests/Resource/brotli/*.txt text eol=lf working-tree-encoding=UTF-8
 
