@@ -10,6 +10,7 @@
   <ItemGroup>
     <None Update="Resource\BingCN.bin" CopyToOutputDirectory="PreserveNewest" />
     <None Update="Resource\BingCN_Compressed.bin" CopyToOutputDirectory="PreserveNewest" />
+	<None Update="Resource\LineEndings\*.bin" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
   <ItemGroup>

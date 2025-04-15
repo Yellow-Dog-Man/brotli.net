@@ -5,6 +5,9 @@
         public const string UncompressedPath = "Resource/BingCN.bin";
         public const string CompressedPath = "Resource/BingCN_Compressed.bin";
 
+        public const string LFUncompressed = "Resource/LineEndings/LF.bin";
+        public const string CRLFUncompressed = "Resource/LineEndings/CRLF.bin";
+
         // Copied from original tests but now preserved as constant: https://github.com/Yellow-Dog-Man/brotli.net/commit/0f4bc44c8466cc19777612639ca225de7cbcd644
         public const uint FIXTURE_QUALITY = 11;
         public const uint FIXTURE_WINDOW = 22;
@@ -44,6 +47,28 @@
             var compressed = input.CompressToBrotli(Fixtures.FIXTURE_QUALITY, Fixtures.FIXTURE_WINDOW, Fixtures.FIXTURE_BLOCK_SIZE);
             var decompressed = compressed.DecompressFromBrotli();
             Assert.Equal(input, decompressed);
+        }
+
+        [Theory]
+        [InlineData(Fixtures.LFUncompressed)]
+        [InlineData(Fixtures.CRLFUncompressed)]
+        public Task TestLineEndingsCompress(string file)
+        {
+            var input = GetBytes(file);
+            var output = input.CompressToBrotli(Fixtures.FIXTURE_QUALITY, Fixtures.FIXTURE_WINDOW, Fixtures.FIXTURE_BLOCK_SIZE);
+            return Verify(output).UseParameters(file);
+        }
+
+        [Theory]
+        [InlineData(Fixtures.LFUncompressed)]
+        [InlineData(Fixtures.CRLFUncompressed)]
+        public Task TestLineEndingsUncompress(string file)
+        {
+            var input = GetBytes(file);
+            var compress = input.CompressToBrotli(Fixtures.FIXTURE_QUALITY, Fixtures.FIXTURE_WINDOW, Fixtures.FIXTURE_BLOCK_SIZE);
+
+            var uncompress = compress.DecompressFromBrotli();
+            return Verify(uncompress).UseParameters(file);
         }
     }
 }
