@@ -22,13 +22,13 @@ namespace Brotli
                 }
             } else if (NativeLibraryLoader.IsLinux)
             {
-                if (NativeLibraryLoader.Is64Bit)
-                {
-                    fileName = "brolib_x64.so";
-                }
-                else if (NativeLibraryLoader.IsArm)
+                if (NativeLibraryLoader.IsArm)
                 {
                     fileName = "libbrolib.so";
+                }
+                else if (NativeLibraryLoader.Is64Bit && !NativeLibraryLoader.IsArm)
+                {
+                    fileName = "brolib_x64.so";
                 }
                 else
                 {
