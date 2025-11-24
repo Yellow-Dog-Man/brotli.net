@@ -14,12 +14,15 @@ namespace Brotli
         internal static bool IsMacOSX = false;
         internal static bool IsNetCore = false;
         internal static bool Is64Bit = false;
+        internal static bool IsArm = false;
+
         static NativeLibraryLoader()
         {
             IsWindows = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
             IsLinux = RuntimeInformation.IsOSPlatform(OSPlatform.Linux);
             IsMacOSX = RuntimeInformation.IsOSPlatform(OSPlatform.OSX);
             IsNetCore = RuntimeInformation.FrameworkDescription.StartsWith(".NET Core");
+            IsArm = RuntimeInformation.ProcessArchitecture == Architecture.Arm64;
 
             if (!IsWindows && !IsLinux && !IsMacOSX)
             {

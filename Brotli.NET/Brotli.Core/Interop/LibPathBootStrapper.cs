@@ -26,6 +26,10 @@ namespace Brotli
                 {
                     fileName = "brolib_x64.so";
                 }
+                else if (NativeLibraryLoader.IsArm)
+                {
+                    fileName = "libbrolib.so";
+                }
                 else
                 {
                     fileName = "brolib_x86.so";
